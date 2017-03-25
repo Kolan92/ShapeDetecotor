@@ -71,6 +71,73 @@ public class FiltersTests {
         detector.setFilter(filter);
         assertDoesNotThrow(() -> detecShapes(detector));
     }
+    @Test
+    public void Filter_GrayScale_Gausian_Erode_Dilate_Mediana_Cany_Threshold() {
+        Filter filter = builder.WithGrayScaleFilter()
+                .WithGaussianBlurFilter()
+                .WithErodeFilter()
+                .WithDilateFilter()
+                .WithMedianaBlurFilter()
+                .WithCanyFilter()
+                .WithBinaryFilter()
+                .Build();
+
+        testName = new Object(){}.getClass().getEnclosingMethod().getName();
+        usedFiltres = filter.toString();
+
+        detector.setFilter(filter);
+        assertDoesNotThrow(() -> detecShapes(detector));
+    }
+    @Test
+    public void Filter_GrayScale_Erode_Dilate_Mediana_Cany_Threshold() {
+        Filter filter = builder.WithGrayScaleFilter()
+                .WithErodeFilter()
+                .WithDilateFilter()
+                .WithMedianaBlurFilter()
+                .WithCanyFilter()
+                .WithBinaryFilter()
+                .Build();
+
+        testName = new Object(){}.getClass().getEnclosingMethod().getName();
+        usedFiltres = filter.toString();
+
+        detector.setFilter(filter);
+        assertDoesNotThrow(() -> detecShapes(detector));
+    }
+    @Test
+    public void Filter_GrayScale_Erode_Dilate_Mediana_Cany_Custom_Threshold() {
+        Filter filter = builder.WithGrayScaleFilter()
+                .WithErodeFilter()
+                .WithDilateFilter()
+                .WithMedianaBlurFilter()
+                .WithCanyFilter()
+                .WithBinaryFilter(150, 200)
+                .Build();
+
+        testName = new Object(){}.getClass().getEnclosingMethod().getName();
+        usedFiltres = filter.toString();
+
+        detector.setFilter(filter);
+        assertDoesNotThrow(() -> detecShapes(detector));
+    }
+    @Test
+    @Ignore("Stupid")
+    public void Filter_GrayScale_Erode_Dilate_Mediana_Cany_Gaussian_Threshold() {
+        Filter filter = builder.WithGrayScaleFilter()
+                .WithErodeFilter()
+                .WithDilateFilter()
+                .WithMedianaBlurFilter()
+                .WithCanyFilter()
+                .WithGaussianBlurFilter()
+                .WithBinaryFilter()
+                .Build();
+
+        testName = new Object(){}.getClass().getEnclosingMethod().getName();
+        usedFiltres = filter.toString();
+
+        detector.setFilter(filter);
+        assertDoesNotThrow(() -> detecShapes(detector));
+    }
 
 
 
@@ -84,11 +151,12 @@ public class FiltersTests {
             detector.detectShapes();
             detector.drawBoxes();
             writeResult(currentFile);
+
             String parentDir = GetMostRecentFolder().getAbsolutePath();
-            String resultPath = parentDir + "\\result_" +testName +"_"+usedFiltres.replaceAll("\\s+","") +"_"+ currentFile + ".png";
-            String filtredPath = parentDir + "\\filtred_" +testName +"_"+usedFiltres.replaceAll("\\s+","") +"_" + currentFile+ ".png";
-            File fiteredIamge = new File(resultPath);
-            File resultImage= new File(filtredPath);
+            String resultPath = parentDir + "\\result_" +testName  +"_"+ currentFile + ".png";
+            String filtredPath = parentDir + "\\filtred_" +testName + "_" + currentFile+ ".png";
+            File fiteredIamge = new File(filtredPath);
+            File resultImage= new File(resultPath);
             ImageIO.write(detector.getResultImage(), "png", resultImage);
             ImageIO.write(detector.getProcessedImage(), "png", fiteredIamge);
         }

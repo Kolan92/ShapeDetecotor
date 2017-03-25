@@ -9,7 +9,7 @@ import java.awt.image.BufferedImage;
  * Created by Pawel on 28.11.2016.
  */
 
-public class VIdeoShapeDetector {
+public class VideoShapeDetector implements ShapeDetector {
     private String filePath;
     private VideoCapture videoStream;
     private ImageShapeDetector frameDetector = new ImageShapeDetector();
@@ -18,7 +18,7 @@ public class VIdeoShapeDetector {
         System.loadLibrary("opencv_ffmpeg310_64");
     }
 
-    public VIdeoShapeDetector(){
+    public VideoShapeDetector(){
         videoStream = new VideoCapture(0);
     }
 
@@ -28,7 +28,7 @@ public class VIdeoShapeDetector {
         videoStream.open(filePath);
     }
 
-    public boolean PlaySequence(){
+    public boolean detectShapes(){
         Mat frame = new Mat();
         if(videoStream.read(frame)){
             frameDetector.setImage(frame);
@@ -41,35 +41,26 @@ public class VIdeoShapeDetector {
         return false;
     }
 
+    @Override
+    public void setMinimumTreshold(int minThreshold) {
+        frameDetector.setMinimumTreshold(minThreshold);
+    }
+
+    @Override
+    public void setMaxThreshold(int maxThreshold) {
+        frameDetector.setMaxThreshold(maxThreshold);
+    }
+
+    @Override
+    public BufferedImage toBufferedImage() {
+        return frameDetector.toBufferedImage();
+    }
+
     public BufferedImage GetFrame(){
         return  frameDetector.toBufferedImage();
     }
-    /*
-    public Iterable<String> getStuff() {
-        return new Iterable<String>() {
 
-            @Override
-            public Iterator<String> iterator() {
-                return new Iterator<String>() {
-
-                    @Override
-                    public boolean hasNext() {
-                        // TODO code to check next
-                    }
-
-                    @Override
-                    public String next() {
-                        // TODO code to go to next
-                    }
-
-                    @Override
-                    public void remove() {
-                        // TODO code to remove item or throw exception
-                    }
-
-                };
-            }
-        };
+    public BufferedImage GetPreprocessedFrame() {
+        return frameDetector.toBufferedImage(frameDetector.getPreprocessedImage());
     }
-    */
 }

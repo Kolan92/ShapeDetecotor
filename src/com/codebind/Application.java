@@ -19,13 +19,21 @@ public class Application {
     private JButton findCirclesButton;
     private JButton loadVideoButton;
     private JButton captureVideoButton;
+    private ImagePanel prepocessedImage;
+    private JSlider minValueSlider;
+    private JSlider maxValueSlider;
     private FileType fileType = FileType.Image;
+    private ShapeDetector detector = new ImageShapeDetector();
+
 
     public Application()  {
         loadImageButton.addActionListener(e -> loadImage());
         loadVideoButton.addActionListener(e -> loadVideo());
         captureVideoButton.addActionListener(e -> captureVideo());
         findCirclesButton.addActionListener(e -> findCircles());
+
+        minValueSlider.addChangeListener(e -> detector.setMinimumTreshold(minValueSlider.getValue()));
+        maxValueSlider.addChangeListener(e -> detector.setMaxThreshold(maxValueSlider.getValue()));
     }
 
     public static void main(String[] args) {
@@ -43,26 +51,28 @@ public class Application {
     }
 
     private void captureVideo(){
-        VIdeoShapeDetector vIdeoShapeDetector = new VIdeoShapeDetector();
-        startVideo(vIdeoShapeDetector);
+        VideoShapeDetector videoShapeDetector = new VideoShapeDetector();
+        startVideo(videoShapeDetector);
     }
 
     private void loadVideo(){
         fileType = FileType.Video;
         String videoPath = OpenVideoFileDialog();
-        VIdeoShapeDetector vIdeoShapeDetector = new VIdeoShapeDetector();
-        vIdeoShapeDetector.OpenVideo(videoPath);
-        startVideo(vIdeoShapeDetector);
+        VideoShapeDetector videoShapeDetector = new VideoShapeDetector();
+        videoShapeDetector.OpenVideo(videoPath);
+        startVideo(videoShapeDetector);
+        detector = videoShapeDetector;
 
     }
 
-    private void startVideo(VIdeoShapeDetector vIdeoShapeDetector){
+    private void startVideo(VideoShapeDetector videoShapeDetector){
         SwingWorker<Void, Mat> worker = new SwingWorker<Void, Mat>() {
             @Override
             protected Void doInBackground() throws Exception {
                 while(!isCancelled()) {
-                    if (vIdeoShapeDetector.PlaySequence()) {
-                        imagePanel.setImage(vIdeoShapeDetector.GetFrame());
+                    if (videoShapeDetector.detectShapes()) {
+                        imagePanel.setImage(videoShapeDetector.GetFrame());
+                        prepocessedImage.setImage(videoShapeDetector.GetPreprocessedFrame());
                     }
                 }
                 return null;
@@ -103,6 +113,9 @@ public class Application {
 
         image = detector.toBufferedImage();
         imagePanel.setImage(image);
+        prepocessedImage.setImage(detector.toBufferedImage(detector.getPreprocessedImage()));
+        this.detector = detector;
     }
 
 }
+

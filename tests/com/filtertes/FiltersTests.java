@@ -120,6 +120,37 @@ public class FiltersTests {
         detector.setFilter(filter);
         assertDoesNotThrow(() -> detecShapes(detector));
     }
+
+    @Test
+    public void Filter_GrayScale_Gaussian_Canny_Closing() {
+        Filter filter = builder.WithGrayScaleFilter()
+                .WithGaussianBlurFilter()
+                .WithCanyFilter()
+                .WithClosingFilter()
+                .Build();
+
+        testName = new Object(){}.getClass().getEnclosingMethod().getName();
+        usedFiltres = filter.toString();
+
+        detector.setFilter(filter);
+        assertDoesNotThrow(() -> detecShapes(detector));
+    }
+
+    @Test
+    public void Filter_GrayScale_Custom_Gaussian_Canny_Closing() {
+        Filter filter = builder.WithGrayScaleFilter()
+                .WithGaussianBlurFilter(3)
+                .WithCanyFilter()
+                .WithClosingFilter()
+                .Build();
+
+        testName = new Object(){}.getClass().getEnclosingMethod().getName();
+        usedFiltres = filter.toString();
+
+        detector.setFilter(filter);
+        assertDoesNotThrow(() -> detecShapes(detector));
+    }
+
     @Test
     @Ignore("Stupid")
     public void Filter_GrayScale_Erode_Dilate_Mediana_Cany_Gaussian_Threshold() {

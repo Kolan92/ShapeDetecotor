@@ -4,28 +4,18 @@ import org.opencv.core.Mat;
 import org.opencv.core.Size;
 import org.opencv.imgproc.Imgproc;
 
-public class GaussianBlurFilter extends Filter{
-    private int size;
-
-    public GaussianBlurFilter(){
-        this(5);
-    }
-
-    public GaussianBlurFilter(int size){
-        this.size = size;
-    }
-
+/**
+ * Created by Pawel on 26.03.2017.
+ */
+public class ClosingFilter extends Filter {
     @Override
     public Mat applyTo(Mat image) throws Exception {
-        Size s = new Size(size,size);
-        Imgproc.GaussianBlur(image, processedImage, s, 0);
+        Mat structuringElement = Imgproc.getStructuringElement(Imgproc.MORPH_RECT, new Size(7,7));
+        Imgproc.morphologyEx(image, processedImage, Imgproc.MORPH_CLOSE, structuringElement);
+
         if(successor != null){
             return successor.applyTo(processedImage);
         }
         return processedImage;
     }
 }
-
-
-
-

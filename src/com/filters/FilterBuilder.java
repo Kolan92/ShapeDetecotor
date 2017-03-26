@@ -46,6 +46,12 @@ public class FilterBuilder {
 
         return this;
     }
+    public FilterBuilder WithGaussianBlurFilter(int size){
+        GaussianBlurFilter filter = new GaussianBlurFilter(size);
+        filters.add(filter);
+
+        return this;
+    }
 
     public FilterBuilder WithMedianaBlurFilter(){
         MedianaBlurFilter filter = new MedianaBlurFilter();
@@ -70,6 +76,13 @@ public class FilterBuilder {
 
     public FilterBuilder WithGrayScaleFilter(){
         GrayScaleFilter filter = new GrayScaleFilter();
+        filters.add(filter);
+
+        return this;
+    }
+
+    public FilterBuilder WithClosingFilter(){
+        ClosingFilter filter = new ClosingFilter();
         filters.add(filter);
 
         return this;

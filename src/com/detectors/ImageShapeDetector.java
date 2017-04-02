@@ -123,7 +123,7 @@ public class ImageShapeDetector {
         return getImage(processeImage);
     }
 
-    private BufferedImage getImage(Mat mat){
+    public static BufferedImage getImage(Mat mat){
         try{
             int type = mat.channels() == 1 ? BufferedImage.TYPE_BYTE_GRAY : BufferedImage.TYPE_3BYTE_BGR;
             BufferedImage out = new BufferedImage(mat.width(), mat.height(), type);

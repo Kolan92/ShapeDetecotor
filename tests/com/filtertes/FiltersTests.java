@@ -152,6 +152,82 @@ public class FiltersTests {
     }
 
     @Test
+    public void Filter_GrayScale_Custom_Gaussian_Canny_Small_Closing() {
+        Filter filter = builder.WithGrayScaleFilter()
+                .WithGaussianBlurFilter(3)
+                .WithCanyFilter()
+                .WithClosingFilter(3)
+                .Build();
+
+        testName = new Object(){}.getClass().getEnclosingMethod().getName();
+        usedFiltres = filter.toString();
+
+        detector.setFilter(filter);
+        assertDoesNotThrow(() -> detecShapes(detector));
+    }
+    @Test
+    public void Filter_GrayScale_EqaliseHists_Custom_Gaussian_Canny_Small_Closing() {
+        Filter filter = builder.WithGrayScaleFilter()
+                .WithEqualizeHistogramFilter()
+                .WithGaussianBlurFilter(3)
+                .WithCanyFilter()
+                .WithClosingFilter(3)
+                .Build();
+
+        testName = new Object(){}.getClass().getEnclosingMethod().getName();
+        usedFiltres = filter.toString();
+
+        detector.setFilter(filter);
+        assertDoesNotThrow(() -> detecShapes(detector));
+    }
+    @Test
+    public void Filter_GrayScale_EqaliseHists_Custom_Gaussian_Canny() {
+        Filter filter = builder.WithGrayScaleFilter()
+                .WithEqualizeHistogramFilter()
+                .WithGaussianBlurFilter(3)
+                .WithCanyFilter()
+                .WithClosingFilter(3)
+                .Build();
+
+        testName = new Object(){}.getClass().getEnclosingMethod().getName();
+        usedFiltres = filter.toString();
+
+        detector.setFilter(filter);
+        assertDoesNotThrow(() -> detecShapes(detector));
+    }
+    @Test
+    @Ignore("To big gausian")
+    public void Filter_GrayScale_Custom_Gaussian_Big_Canny_Closing() {
+        Filter filter = builder.WithGrayScaleFilter()
+                .WithGaussianBlurFilter(15)
+                .WithCanyFilter()
+                .WithClosingFilter()
+                .Build();
+
+        testName = new Object(){}.getClass().getEnclosingMethod().getName();
+        usedFiltres = filter.toString();
+
+        detector.setFilter(filter);
+        assertDoesNotThrow(() -> detecShapes(detector));
+    }
+    @Test
+    @Ignore("slow")
+    public void Filter_Denois_GrayScale_Custom_Gaussian_Canny_Closing() {
+        Filter filter = builder.WithFastNlMeansDenoisingFilter()
+                .WithGrayScaleFilter()
+                .WithGaussianBlurFilter(3)
+                .WithCanyFilter()
+                .WithClosingFilter()
+                .Build();
+
+        testName = new Object(){}.getClass().getEnclosingMethod().getName();
+        usedFiltres = filter.toString();
+
+        detector.setFilter(filter);
+        assertDoesNotThrow(() -> detecShapes(detector));
+    }
+
+    @Test
     @Ignore("Stupid")
     public void Filter_GrayScale_Erode_Dilate_Mediana_Cany_Gaussian_Threshold() {
         Filter filter = builder.WithGrayScaleFilter()
@@ -184,8 +260,12 @@ public class FiltersTests {
             writeResult(currentFile);
 
             String parentDir = GetMostRecentFolder().getAbsolutePath();
-            String resultPath = parentDir + "\\result_" +testName  +"_"+ currentFile + ".png";
-            String filtredPath = parentDir + "\\filtred_" +testName + "_" + currentFile+ ".png";
+
+
+            File dir = new File(parentDir+ "\\"+testName);
+            dir.mkdir();
+            String resultPath = parentDir + "\\"+testName  +"\\result_" + currentFile + ".png";
+            String filtredPath = parentDir + "\\"+testName + "\\filtred_" + currentFile+ ".png";
             File fiteredIamge = new File(filtredPath);
             File resultImage= new File(resultPath);
             ImageIO.write(detector.getResultImage(), "png", resultImage);
@@ -193,7 +273,7 @@ public class FiltersTests {
         }
 
         File parentDir = GetMostRecentFolder();
-        String fileName = parentDir.getAbsolutePath() + "\\test_data"+testName+".json";
+        String fileName = parentDir.getAbsolutePath() + "\\"+testName+"\\test_data.json";
 
         try (FileWriter writer = new FileWriter(fileName)) {
             Gson gson = new GsonBuilder().setPrettyPrinting().create();

@@ -88,6 +88,27 @@ public class FilterBuilder {
         return this;
     }
 
+    public FilterBuilder WithClosingFilter(int size){
+        ClosingFilter filter = new ClosingFilter(size);
+        filters.add(filter);
+
+        return this;
+    }
+
+    public FilterBuilder WithFastNlMeansDenoisingFilter(){
+        FastNlMeansDenoisingFilter filter = new FastNlMeansDenoisingFilter();
+        filters.add(filter);
+
+        return this;
+    }
+
+    public FilterBuilder WithEqualizeHistogramFilter(){
+        EqualizeHistogramFilter filter = new EqualizeHistogramFilter();
+        filters.add(filter);
+
+        return this;
+    }
+
     public Filter Build(){
         for (int i = 0; i < filters.size() - 1; i++ ){
             Filter sucessor = filters.get(i+1);

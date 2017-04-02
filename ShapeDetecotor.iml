@@ -8,7 +8,6 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="opencv-310" level="application" />
     <orderEntry type="module-library" scope="TEST">
       <library name="JUnit4">
         <CLASSES>
@@ -26,6 +25,20 @@
         </CLASSES>
         <JAVADOC />
         <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://C:/Lib/opencv32/build/java/opencv-320.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <NATIVE>
+          <root url="file://C:/Lib/opencv32/build/java/x64" />
+        </NATIVE>
+        <SOURCES>
+          <root url="jar://C:/Lib/opencv32/build/java/opencv-320.jar!/" />
+        </SOURCES>
       </library>
     </orderEntry>
   </component>

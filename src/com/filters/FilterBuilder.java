@@ -1,5 +1,7 @@
 package com.filters;
 
+import com.imageProcessing.PreProcessor;
+
 import java.util.ArrayList;
 
 /**
@@ -104,6 +106,34 @@ public class FilterBuilder {
 
     public FilterBuilder WithEqualizeHistogramFilter(){
         EqualizeHistogramFilter filter = new EqualizeHistogramFilter();
+        filters.add(filter);
+
+        return this;
+    }
+
+    public FilterBuilder WithPreProcessor(){
+        PreProcessor filter = new PreProcessor();
+        filters.add(filter);
+
+        return this;
+    }
+
+    public FilterBuilder WithChannelFilter(int channel){
+        ChannelFilter filter = new ChannelFilter(channel);
+        filters.add(filter);
+
+        return this;
+    }
+
+    public FilterBuilder WithHLSFilter(){
+        HLSFilter filter = new HLSFilter();
+        filters.add(filter);
+
+        return this;
+    }
+
+    public FilterBuilder WithMultipleMedianaFilter(){
+        MultipleMedianeFilter filter = new MultipleMedianeFilter();
         filters.add(filter);
 
         return this;

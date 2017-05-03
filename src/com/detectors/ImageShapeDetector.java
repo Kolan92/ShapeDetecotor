@@ -50,11 +50,15 @@ public class ImageShapeDetector {
     }
 
     private void detectPolygons(){
-        if(image == null)
+        if(processeImage == null)
             return;
         ArrayList<MatOfPoint> contours = new ArrayList<MatOfPoint>();
         Mat hierarchy = new Mat();
-        Imgproc.findContours(processeImage, contours,hierarchy, Imgproc.RETR_TREE, Imgproc.CHAIN_APPROX_SIMPLE);
+        System.out.println("processeImage size " + processeImage.size());
+        System.out.println("processeImage type " + processeImage.type());
+        System.out.println("processeImage channels " + processeImage.channels());
+
+        Imgproc.findContours(processeImage, contours, hierarchy, Imgproc.RETR_TREE, Imgproc.CHAIN_APPROX_SIMPLE);
 
         int minCounturArea = getMinimumShapeArea();
 

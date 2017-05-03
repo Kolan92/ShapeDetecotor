@@ -8,7 +8,7 @@ public class DilateFilter extends Filter{
 
     @Override
     public Mat applyTo(Mat image) throws Exception {
-        Mat dilateElement = Imgproc.getStructuringElement(Imgproc.MORPH_RECT, new Size(5,5));
+        Mat dilateElement = Imgproc.getStructuringElement(Imgproc.MORPH_CROSS, new Size(5,5));
 
         Imgproc.dilate(image, processedImage, dilateElement);
         Imgproc.dilate(image, processedImage, dilateElement);

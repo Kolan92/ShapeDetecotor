@@ -246,6 +246,115 @@ public class FiltersTests {
         assertDoesNotThrow(() -> detecShapes(detector));
     }
 
+    @Test
+    public void PreProcessorTest_With_Some_Filters(){
+        Filter filter = builder.WithPreProcessor()
+                .WithGrayScaleFilter()
+                .WithGaussianBlurFilter(3)
+                .WithCanyFilter()
+                .WithClosingFilter()
+                .Build();
+
+        testName = new Object(){}.getClass().getEnclosingMethod().getName();
+        usedFiltres = filter.toString();
+
+        detector.setFilter(filter);
+        assertDoesNotThrow(() -> detecShapes(detector));
+    }
+    @Test
+    public void Filter_HLS_Channel0_Gaussian3_Cany_Closing(){
+        Filter filter = builder.WithHLSFilter()
+                .WithChannelFilter(0)
+                .WithGaussianBlurFilter(3)
+                .WithCanyFilter()
+                .WithClosingFilter()
+                .Build();
+
+        testName = new Object(){}.getClass().getEnclosingMethod().getName();
+        usedFiltres = filter.toString();
+
+        detector.setFilter(filter);
+        assertDoesNotThrow(() -> detecShapes(detector));
+    }
+    @Test
+    public void Filter_HLS_Channel0_Gaussian_Cany_Closing(){
+        Filter filter = builder.WithHLSFilter()
+                .WithChannelFilter(0)
+                .WithGaussianBlurFilter()
+                .WithCanyFilter()
+                .WithClosingFilter()
+                .Build();
+
+        testName = new Object(){}.getClass().getEnclosingMethod().getName();
+        usedFiltres = filter.toString();
+
+        detector.setFilter(filter);
+        assertDoesNotThrow(() -> detecShapes(detector));
+    }
+    @Test
+    public void Filter_Gaussian_HLS_Channel0_Cany_Closing(){
+        Filter filter = builder.WithGaussianBlurFilter().
+                WithHLSFilter()
+                .WithChannelFilter(0)
+                .WithCanyFilter()
+                .WithClosingFilter()
+                .Build();
+
+        testName = new Object(){}.getClass().getEnclosingMethod().getName();
+        usedFiltres = filter.toString();
+
+        detector.setFilter(filter);
+        assertDoesNotThrow(() -> detecShapes(detector));
+    }
+    @Test
+    public void Filter_Gaussian_HLS_Channel0_Cany(){
+        Filter filter = builder.WithGaussianBlurFilter().
+                WithHLSFilter()
+                .WithChannelFilter(0)
+                .WithCanyFilter()
+                .Build();
+
+        testName = new Object(){}.getClass().getEnclosingMethod().getName();
+        usedFiltres = filter.toString();
+
+        detector.setFilter(filter);
+        assertDoesNotThrow(() -> detecShapes(detector));
+    }
+
+    @Test
+    public void Filter_Preprocessor_Chanell0_Dilate_Threshold_Erode_MultipleMediana(){
+        Filter filter = builder
+                .WithPreProcessor()
+                .WithChannelFilter(0)
+                .WithDilateFilter()
+                .WithBinaryFilter(230, 255)
+                .WithErodeFilter()
+                .WithMultipleMedianaFilter()
+                .Build();
+
+        testName = new Object(){}.getClass().getEnclosingMethod().getName();
+        usedFiltres = filter.toString();
+
+        detector.setFilter(filter);
+        assertDoesNotThrow(() -> detecShapes(detector));
+    }
+    @Test
+    public void Filter_Preprocessor_Chanell0_Dilate_Threshold_Erode(){
+        Filter filter = builder
+                .WithPreProcessor()
+                .WithChannelFilter(0)
+                .WithDilateFilter()
+                .WithBinaryFilter(230, 255)
+                .WithErodeFilter()
+                .Build();
+
+        testName = new Object(){}.getClass().getEnclosingMethod().getName();
+        usedFiltres = filter.toString();
+
+        detector.setFilter(filter);
+        assertDoesNotThrow(() -> detecShapes(detector));
+    }
+
 
 
     public void detecShapes(ImageShapeDetector detector) throws Exception {

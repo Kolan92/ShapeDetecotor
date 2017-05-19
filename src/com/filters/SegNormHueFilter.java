@@ -10,6 +10,8 @@ public abstract class SegNormHueFilter extends Filter{
     protected int hueMax;
     protected int satMin;
 
+    protected boolean isBlue = false;
+
     @Override
     public Mat applyTo(Mat image) throws Exception {
         double[] buffer = new double[3];
@@ -21,7 +23,11 @@ public abstract class SegNormHueFilter extends Filter{
                 double s = hlsData[0];
                 //double l = hlsData[1]; //For debug purpose
                 double h = hlsData[2];
-                char data = (char)(blueCondition(h, hueMax, hueMin, s, satMin) ? 255 : 0);
+                char data;
+                if(isBlue)
+                    data = (char)(blueCondition(h, hueMax, hueMin, s, satMin) ? 255 : 0);
+                else
+                    data = (char)(redCondition(h, hueMax, hueMin, s, satMin) ? 255 : 0);
 
                 buffer[0] = data;
                 processedImage.put(i,j, buffer);
@@ -36,5 +42,9 @@ public abstract class SegNormHueFilter extends Filter{
 
     private boolean blueCondition(double h, int hue_max, int hue_min, double s, int sat_min){
         return (h < hue_max && h > hue_min) && s > sat_min;
+    }
+
+    private boolean redCondition(double h, int hue_max, int hue_min, double s, int sat_min){
+        return (h < hue_max || h > hue_min) && s > sat_min;
     }
 }

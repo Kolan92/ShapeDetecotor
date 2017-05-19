@@ -5,10 +5,19 @@ import org.opencv.core.Size;
 import org.opencv.imgproc.Imgproc;
 
 public class ErodeFilter extends Filter{
+    private int morphElement;
+
+    public ErodeFilter(){
+        morphElement = Imgproc.MORPH_CROSS;
+    }
+
+    public ErodeFilter(int morpgElement){
+        morphElement = morpgElement;
+    }
 
     @Override
     public Mat applyTo(Mat image) throws Exception {
-        Mat erodeElement = Imgproc.getStructuringElement(Imgproc.MORPH_CROSS, new Size(3,3));
+        Mat erodeElement = Imgproc.getStructuringElement(morphElement, new Size(3,3));
 
         Imgproc.erode(image, processedImage, erodeElement);
         Imgproc.erode(image, processedImage, erodeElement);

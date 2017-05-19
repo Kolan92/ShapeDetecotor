@@ -42,6 +42,20 @@ public class FilterBuilder {
         return this;
     }
 
+    public FilterBuilder WithDilateFilter(int morphElement){
+        DilateFilter filter = new DilateFilter(morphElement);
+        filters.add(filter);
+
+        return this;
+    }
+
+    public FilterBuilder WithErodeFilter(int morphElement){
+        ErodeFilter filter = new ErodeFilter(morphElement);
+        filters.add(filter);
+
+        return this;
+    }
+
     public FilterBuilder WithGaussianBlurFilter(){
         GaussianBlurFilter filter = new GaussianBlurFilter();
         filters.add(filter);
@@ -132,8 +146,22 @@ public class FilterBuilder {
         return this;
     }
 
+    public FilterBuilder WithHSVFilter(){
+        HSVFilter filter = new HSVFilter();
+        filters.add(filter);
+
+        return this;
+    }
+
     public FilterBuilder WithMultipleMedianaFilter(){
         MultipleMedianeFilter filter = new MultipleMedianeFilter();
+        filters.add(filter);
+
+        return this;
+    }
+
+    public FilterBuilder WithAdaptiveThresholdFilter(){
+        AdaptiveThresholdFilter filter = new AdaptiveThresholdFilter();
         filters.add(filter);
 
         return this;

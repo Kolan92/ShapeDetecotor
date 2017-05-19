@@ -8,5 +8,6 @@ public class SegRedNormHueFilter extends SegNormHueFilter {
         hueMax = 15;
         hueMin = 240;
         satMin = 25;
+        isBlue = false;
     }
 }

@@ -167,6 +167,37 @@ public class FilterBuilder {
         return this;
     }
 
+    public FilterBuilder WithHughFilter(){
+        HughFilter filter = new HughFilter();
+        filters.add(filter);
+
+        return this;
+    }
+
+    public FilterBuilder WithOpeningFilter(){
+        OpeningFilter openingFilter = new OpeningFilter();
+        filters.add(openingFilter);
+
+        return this;
+    }
+
+    public FilterBuilder WithWaterSheedFilter(){
+        WathersheedFilter wathersheedFilter = new WathersheedFilter();
+        filters.add(wathersheedFilter);
+
+        return this;
+    }
+
+    public FilterBuilder AsMergeFilter(){
+        int lastIndex  = filters.size() - 1;
+        Filter lastFilter = filters.get(lastIndex);
+        MergeFilter mergeFilter = new MergeFilter(lastFilter);
+
+        filters.set(lastIndex, mergeFilter);
+
+        return this;
+    }
+
     public Filter Build(){
         for (int i = 0; i < filters.size() - 1; i++ ){
             Filter sucessor = filters.get(i+1);

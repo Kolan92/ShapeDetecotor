@@ -17,7 +17,12 @@ public class BinaryFilter extends Filter{
     }
     @Override
     public Mat applyTo(Mat image) throws Exception {
+        System.out.println("Binary");
+        System.out.println(image.type());
+
         Imgproc.threshold(image, processedImage, lowThreshold, highThreshold, Imgproc.THRESH_BINARY );
+        System.out.println(processedImage.type());
+
         if(successor != null){
             return successor.applyTo(processedImage);
         }

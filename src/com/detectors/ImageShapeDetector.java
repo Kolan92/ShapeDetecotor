@@ -25,9 +25,18 @@ public class ImageShapeDetector {
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
     }
 
+    @Deprecated //only for testing
+    public Filter GetFilter(){
+        return filter;
+    }
+
     public void setImage(BufferedImage image){
         shapes.clear();
         this.image = imageToMat(image);
+    }
+    public void setImage(Mat image){
+        shapes.clear();
+        this.image = image;
     }
     public void setFilter(Filter filter){
         this.filter = filter;

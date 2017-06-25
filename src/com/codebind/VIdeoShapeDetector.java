@@ -1,7 +1,10 @@
 package com.codebind;
 
+import com.filters.Filter;
+import com.filters.FilterBuilder;
 import org.opencv.core.Mat;
 import org.opencv.videoio.VideoCapture;
+import com.detectors.ImageShapeDetector;
 
 import java.awt.image.BufferedImage;
 
@@ -15,11 +18,23 @@ public class VideoShapeDetector implements ShapeDetector {
     private ImageShapeDetector frameDetector = new ImageShapeDetector();
 
     static {
-        System.loadLibrary("opencv_ffmpeg310_64");
+        System.loadLibrary("opencv_ffmpeg320_64");
     }
 
     public VideoShapeDetector(){
         videoStream = new VideoCapture(0);
+        FilterBuilder builder = new FilterBuilder();
+        Filter filter = builder
+                .WithHSVFilter()
+                .WithChannelFilter(1)
+                .WithMedianaBlurFilter()
+                .WithMedianaBlurFilter()
+
+                .WithClosingFilter()
+                .WithBinaryFilter(150,230)
+                .WithCanyFilter()
+                .Build();
+        frameDetector.setFilter(filter);
     }
 
     public void OpenVideo(String filePath){
@@ -28,7 +43,7 @@ public class VideoShapeDetector implements ShapeDetector {
         videoStream.open(filePath);
     }
 
-    public boolean detectShapes(){
+    public boolean detectShapes() throws Exception {
         Mat frame = new Mat();
         if(videoStream.read(frame)){
             frameDetector.setImage(frame);
@@ -43,24 +58,24 @@ public class VideoShapeDetector implements ShapeDetector {
 
     @Override
     public void setMinimumTreshold(int minThreshold) {
-        frameDetector.setMinimumTreshold(minThreshold);
+
     }
 
     @Override
     public void setMaxThreshold(int maxThreshold) {
-        frameDetector.setMaxThreshold(maxThreshold);
+
     }
 
     @Override
     public BufferedImage toBufferedImage() {
-        return frameDetector.toBufferedImage();
+        return frameDetector.getResultImage();
     }
 
     public BufferedImage GetFrame(){
-        return  frameDetector.toBufferedImage();
+        return  frameDetector.getResultImage();
     }
 
     public BufferedImage GetPreprocessedFrame() {
-        return frameDetector.toBufferedImage(frameDetector.getPreprocessedImage());
+        return frameDetector.getProcessedImage();
     }
 }

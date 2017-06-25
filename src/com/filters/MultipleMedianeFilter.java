@@ -21,9 +21,13 @@ public class MultipleMedianeFilter extends Filter {
 
     @Override
     public Mat applyTo(Mat image) throws Exception {
+        System.out.println("Before");
+        System.out.println(image.type());
+
         processedImage = image.clone();
         for ( int i=0; i< iterations; i++) {
             Imgproc.medianBlur(processedImage, processedImage, size);
+            System.out.println(processedImage.type());
         }
 
         if(successor != null)

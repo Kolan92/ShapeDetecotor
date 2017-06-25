@@ -998,22 +998,7 @@ public class FiltersTests {
         assertDoesNotThrow(() -> detecShapes(detector));
     }
 
-    @Test
-    public void Filter_HSV_Chanel1_MultiMediana_Threshold_Cany(){
-        Filter filter = builder
-                .WithHSVFilter()
-                .WithChannelFilter(1)
-                .WithMultipleMedianaFilter()
-                .WithBinaryFilter()
-                .WithCanyFilter()
-                .Build();
 
-        testName = new Object(){}.getClass().getEnclosingMethod().getName();
-        usedFiltres = filter.toString();
-
-        detector.setFilter(filter);
-        assertDoesNotThrow(() -> detecShapes(detector));
-    }
     @Test
     @Ignore
     public void Filter_HSV_Chanel1_MultiMediana_Gray_Threshold_Cany(){
@@ -1048,22 +1033,7 @@ public class FiltersTests {
         detector.setFilter(filter);
         assertDoesNotThrow(() -> detecShapes(detector));
     }
-    @Test
-    public void Filter_HSV_Chanell1_MultipleMediana_AdaptiveThreshold_Cany(){
-        Filter filter = builder
-                .WithHSVFilter()
-                .WithChannelFilter(1)
-                .WithMultipleMedianaFilter()
-                .WithAdaptiveThresholdFilter()
-                .WithCanyFilter()
-                .Build();
 
-        testName = new Object(){}.getClass().getEnclosingMethod().getName();
-        usedFiltres = filter.toString();
-
-        detector.setFilter(filter);
-        assertDoesNotThrow(() -> detecShapes(detector));
-    }
 
     @Test
     public void Filter_HSV_Chanell1_Gaussian_Erode_Cany(){
@@ -1115,7 +1085,491 @@ public class FiltersTests {
         detector.setFilter(filter);
         assertDoesNotThrow(() -> detecShapes(detector));
     }
+    @Test
+    public void Filter_HSV_Chanel1_MultiMediana_Threshold_Cany(){
+        Filter filter = builder
+                .WithHSVFilter()
+                .WithChannelFilter(1)
+                .WithMultipleMedianaFilter()
+                .WithBinaryFilter()
+                .WithCanyFilter()
+                .Build();
 
+        testName = new Object(){}.getClass().getEnclosingMethod().getName();
+        usedFiltres = filter.toString();
+
+        detector.setFilter(filter);
+        assertDoesNotThrow(() -> detecShapes(detector));
+    }
+    @Test
+    public void Filter_Gryeyscale_MultiMediana_Threshold_Cany(){
+        Filter filter = builder
+                .WithGrayScaleFilter()
+                .WithMultipleMedianaFilter()
+                .WithBinaryFilter()
+                .WithCanyFilter()
+                .Build();
+
+        testName = new Object(){}.getClass().getEnclosingMethod().getName();
+        usedFiltres = filter.toString();
+
+        detector.setFilter(filter);
+        assertDoesNotThrow(() -> detecShapes(detector));
+    }
+    @Test
+    public void Filter_Gryeyscale_Threshold_Cany(){
+        Filter filter = builder
+                .WithGrayScaleFilter()
+                .WithBinaryFilter()
+                .WithCanyFilter()
+                .Build();
+
+        testName = new Object(){}.getClass().getEnclosingMethod().getName();
+        usedFiltres = filter.toString();
+
+        detector.setFilter(filter);
+        assertDoesNotThrow(() -> detecShapes(detector));
+    }
+    @Test
+    public void Filter_HSV_Chanell1_MultipleMediana_AdaptiveThreshold_Cany(){
+        Filter filter = builder
+                .WithHSVFilter()
+                .WithChannelFilter(1)
+                .WithMultipleMedianaFilter()
+                .WithAdaptiveThresholdFilter()
+                .WithCanyFilter()
+                .Build();
+
+        testName = new Object(){}.getClass().getEnclosingMethod().getName();
+        usedFiltres = filter.toString();
+
+        detector.setFilter(filter);
+        assertDoesNotThrow(() -> detecShapes(detector));
+    }
+    @Test
+    public void Filter_HSV_Chanell1_Mediana_AdaptiveThreshold_Cany(){
+        Filter filter = builder
+                .WithHSVFilter()
+                .WithChannelFilter(1)
+                .WithMedianaBlurFilter()
+                .WithAdaptiveThresholdFilter()
+                .WithCanyFilter()
+                .Build();
+
+        testName = new Object(){}.getClass().getEnclosingMethod().getName();
+        usedFiltres = filter.toString();
+
+        detector.setFilter(filter);
+        assertDoesNotThrow(() -> detecShapes(detector));
+    }
+
+    @Test
+    public void Filter_HSV_Chanell1_Mediana_Mediana_Mediana_Mediana_Mediana_AdaptiveThreshold_Cany(){
+        Filter filter = builder
+                .WithHSVFilter()
+                .WithChannelFilter(1)
+                .WithMedianaBlurFilter()
+                .WithMedianaBlurFilter()
+                .WithMedianaBlurFilter()
+                .WithMedianaBlurFilter()
+                .WithMedianaBlurFilter()
+                .WithAdaptiveThresholdFilter()
+                .WithCanyFilter()
+                .Build();
+
+        testName = new Object(){}.getClass().getEnclosingMethod().getName();
+        usedFiltres = filter.toString();
+
+        detector.setFilter(filter);
+        assertDoesNotThrow(() -> detecShapes(detector));
+    }
+
+    @Test
+    public void Filter_HSV_Chanell1_Mediana_Mediana_Mediana_Mediana_Mediana_Mediana_Mediana_Mediana_Mediana_Mediana_AdaptiveThreshold_Cany(){
+        Filter filter = builder
+                .WithHSVFilter()
+                .WithChannelFilter(1)
+                .WithMedianaBlurFilter()
+                .WithMedianaBlurFilter()
+                .WithMedianaBlurFilter()
+                .WithMedianaBlurFilter()
+                .WithMedianaBlurFilter()
+                .WithMedianaBlurFilter()
+                .WithMedianaBlurFilter()
+                .WithMedianaBlurFilter()
+                .WithMedianaBlurFilter()
+                .WithMedianaBlurFilter()
+                .WithAdaptiveThresholdFilter()
+                .WithCanyFilter()
+                .Build();
+
+        testName = new Object(){}.getClass().getEnclosingMethod().getName();
+        usedFiltres = filter.toString();
+
+        detector.setFilter(filter);
+        assertDoesNotThrow(() -> detecShapes(detector));
+    }    @Test
+    public void Filter_HSV_Chanell1_10Mediana_Closing_AdaptiveThreshold_Cany(){
+        Filter filter = builder
+                .WithHSVFilter()
+                .WithChannelFilter(1)
+                .WithMedianaBlurFilter()
+                .WithMedianaBlurFilter()
+                .WithMedianaBlurFilter()
+                .WithMedianaBlurFilter()
+                .WithMedianaBlurFilter()
+                .WithMedianaBlurFilter()
+                .WithMedianaBlurFilter()
+                .WithMedianaBlurFilter()
+                .WithMedianaBlurFilter()
+                .WithMedianaBlurFilter()
+                .WithClosingFilter()
+                .WithAdaptiveThresholdFilter()
+                .WithCanyFilter()
+                .Build();
+
+        testName = new Object(){}.getClass().getEnclosingMethod().getName();
+        usedFiltres = filter.toString();
+
+        detector.setFilter(filter);
+        assertDoesNotThrow(() -> detecShapes(detector));
+    }
+    @Test
+    public void Filter_HSV_Chanell1_10Mediana_Threshold_Cany(){
+        Filter filter = builder
+                .WithHSVFilter()
+                .WithChannelFilter(1)
+                .WithMedianaBlurFilter()
+                .WithMedianaBlurFilter()
+                .WithMedianaBlurFilter()
+                .WithMedianaBlurFilter()
+                .WithMedianaBlurFilter()
+                .WithMedianaBlurFilter()
+                .WithMedianaBlurFilter()
+                .WithMedianaBlurFilter()
+                .WithMedianaBlurFilter()
+                .WithMedianaBlurFilter()
+                .WithBinaryFilter()
+                .WithCanyFilter()
+                .Build();
+
+        testName = new Object(){}.getClass().getEnclosingMethod().getName();
+        usedFiltres = filter.toString();
+
+        detector.setFilter(filter);
+        assertDoesNotThrow(() -> detecShapes(detector));
+    } @Test
+    public void Filter_HSV_Chanell1_7Mediana_Threshold_200_250_Cany(){
+        Filter filter = builder
+                .WithHSVFilter()
+                .WithChannelFilter(1)
+                .WithMedianaBlurFilter()
+                .WithMedianaBlurFilter()
+                .WithMedianaBlurFilter()
+                .WithMedianaBlurFilter()
+                .WithMedianaBlurFilter()
+                .WithMedianaBlurFilter()
+                .WithMedianaBlurFilter()
+                .WithBinaryFilter(200, 250)
+                .WithCanyFilter()
+                .Build();
+
+        testName = new Object(){}.getClass().getEnclosingMethod().getName();
+        usedFiltres = filter.toString();
+
+        detector.setFilter(filter);
+        assertDoesNotThrow(() -> detecShapes(detector));
+    } @Test
+    public void Filter_HSV_Chanell1_10Mediana_Threshold_Cany_Hugh(){
+        Filter filter = builder
+                .WithHSVFilter()
+                .WithChannelFilter(1)
+                .WithMedianaBlurFilter()
+                .WithMedianaBlurFilter()
+                .WithMedianaBlurFilter()
+                .WithMedianaBlurFilter()
+                .WithMedianaBlurFilter()
+                .WithMedianaBlurFilter()
+                .WithMedianaBlurFilter()
+                .WithMedianaBlurFilter()
+                .WithMedianaBlurFilter()
+                .WithMedianaBlurFilter()
+                .WithBinaryFilter()
+                .WithCanyFilter()
+                .WithHughFilter()
+                //.AsMergeFilter()
+                .Build();
+
+        testName = new Object(){}.getClass().getEnclosingMethod().getName();
+        usedFiltres = filter.toString();
+
+        detector.setFilter(filter);
+        assertDoesNotThrow(() -> detecShapes(detector));
+    }  @Test
+    public void Filter_HSV_Chanell1_10Mediana_Threshold150_255_Cany(){
+        Filter filter = builder
+                .WithHSVFilter()
+                .WithChannelFilter(1)
+                .WithMedianaBlurFilter()
+                .WithMedianaBlurFilter()
+                .WithMedianaBlurFilter()
+                .WithMedianaBlurFilter()
+                .WithMedianaBlurFilter()
+                .WithMedianaBlurFilter()
+                .WithMedianaBlurFilter()
+                .WithMedianaBlurFilter()
+                .WithMedianaBlurFilter()
+                .WithMedianaBlurFilter()
+                .WithBinaryFilter(150,255)
+                .WithCanyFilter()
+                .Build();
+
+        testName = new Object(){}.getClass().getEnclosingMethod().getName();
+        usedFiltres = filter.toString();
+
+        detector.setFilter(filter);
+        assertDoesNotThrow(() -> detecShapes(detector));
+    }@Test
+    public void Filter_HSV_Chanell1_10Mediana_Threshold150_255_Cany_Hugh(){
+        Filter filter = builder
+                .WithHSVFilter()
+                .WithChannelFilter(1)
+                .WithMedianaBlurFilter()
+                .WithMedianaBlurFilter()
+                .WithMedianaBlurFilter()
+                .WithMedianaBlurFilter()
+                .WithMedianaBlurFilter()
+                .WithMedianaBlurFilter()
+                .WithMedianaBlurFilter()
+                .WithMedianaBlurFilter()
+                .WithMedianaBlurFilter()
+                .WithMedianaBlurFilter()
+                .WithBinaryFilter(150,255)
+                .WithCanyFilter()
+                .WithHughFilter()
+                .Build();
+
+        testName = new Object(){}.getClass().getEnclosingMethod().getName();
+        usedFiltres = filter.toString();
+
+        detector.setFilter(filter);
+        assertDoesNotThrow(() -> detecShapes(detector));
+    }
+    @Test
+    public void Filter_HSV_Chanell1_Gaussin_AdaptiveThreshold_Cany(){
+        Filter filter = builder
+                .WithHSVFilter()
+                .WithChannelFilter(1)
+                .WithGaussianBlurFilter()
+                .WithAdaptiveThresholdFilter()
+                .WithCanyFilter()
+                .Build();
+
+        testName = new Object(){}.getClass().getEnclosingMethod().getName();
+        usedFiltres = filter.toString();
+
+        detector.setFilter(filter);
+        assertDoesNotThrow(() -> detecShapes(detector));
+    }
+    @Test
+    public void Filter_HSV_Chanell1_Gaussin_Threshold_Cany(){
+        Filter filter = builder
+                .WithHSVFilter()
+                .WithChannelFilter(1)
+                .WithGaussianBlurFilter()
+                .WithBinaryFilter()
+                .WithCanyFilter()
+                .Build();
+
+        testName = new Object(){}.getClass().getEnclosingMethod().getName();
+        usedFiltres = filter.toString();
+
+        detector.setFilter(filter);
+        assertDoesNotThrow(() -> detecShapes(detector));
+    }
+
+    @Test
+    public void Filter_HSV_Chanell1_Gaussin_Threshold150_255_Cany(){
+        Filter filter = builder
+                .WithHSVFilter()
+                .WithChannelFilter(1)
+                .WithGaussianBlurFilter()
+                .WithBinaryFilter(150,255)
+                .WithCanyFilter()
+                .Build();
+
+        testName = new Object(){}.getClass().getEnclosingMethod().getName();
+        usedFiltres = filter.toString();
+
+        detector.setFilter(filter);
+        assertDoesNotThrow(() -> detecShapes(detector));
+    }
+
+    @Test
+    @Ignore
+    public void Filter_FastNlMeansDenoising_HSV_Chanell1_Gaussin_Threshold150_255_Cany(){
+        Filter filter = builder
+                .WithFastNlMeansDenoisingFilter()
+                .WithHSVFilter()
+                .WithChannelFilter(1)
+                .WithGaussianBlurFilter()
+                .WithBinaryFilter(150,255)
+                .WithCanyFilter()
+                .Build();
+
+        testName = new Object(){}.getClass().getEnclosingMethod().getName();
+        usedFiltres = filter.toString();
+
+        detector.setFilter(filter);
+        assertDoesNotThrow(() -> detecShapes(detector));
+    }
+
+    @Test
+    public void Filter_HSV_Chanell1_Gaussin_AdaptiveThreshold_Cany_Hugh(){
+        Filter filter = builder
+                .WithHSVFilter()
+                .WithChannelFilter(1)
+                .WithGaussianBlurFilter()
+                .WithAdaptiveThresholdFilter()
+                .WithCanyFilter()
+                .WithHughFilter()
+                .Build();
+
+        testName = new Object(){}.getClass().getEnclosingMethod().getName();
+        usedFiltres = filter.toString();
+
+        detector.setFilter(filter);
+        assertDoesNotThrow(() -> detecShapes(detector));
+    }
+    @Test
+    public void Filter_HSV_Chanell1_Gaussin_AdaptiveThreshold_Cany_Opening(){
+        Filter filter = builder
+                .WithHSVFilter()
+                .WithChannelFilter(1)
+                .WithGaussianBlurFilter()
+                .WithAdaptiveThresholdFilter()
+                .WithCanyFilter()
+                .WithOpeningFilter()
+                .Build();
+
+        testName = new Object(){}.getClass().getEnclosingMethod().getName();
+        usedFiltres = filter.toString();
+
+        detector.setFilter(filter);
+        assertDoesNotThrow(() -> detecShapes(detector));
+    }    @Test
+    public void Filter_HSV_Chanell1_Gaussin_AdaptiveThreshold_Opening_Cany(){
+        Filter filter = builder
+                .WithHSVFilter()
+                .WithChannelFilter(1)
+                .WithGaussianBlurFilter()
+                .WithAdaptiveThresholdFilter()
+                .WithOpeningFilter()
+                .WithCanyFilter()
+                .Build();
+
+        testName = new Object(){}.getClass().getEnclosingMethod().getName();
+        usedFiltres = filter.toString();
+
+        detector.setFilter(filter);
+        assertDoesNotThrow(() -> detecShapes(detector));
+    }
+    @Test
+    public void Filter_HSV_Chanell1_Gaussin_AdaptiveThreshold_Cany_Hugh_Mediana(){
+        Filter filter = builder
+                .WithHSVFilter()
+                .WithChannelFilter(1)
+                .WithGaussianBlurFilter()
+                .WithAdaptiveThresholdFilter()
+                .WithCanyFilter()
+                .WithHughFilter()
+                .WithMedianaBlurFilter()
+                .Build();
+
+        testName = new Object(){}.getClass().getEnclosingMethod().getName();
+        usedFiltres = filter.toString();
+
+        detector.setFilter(filter);
+        assertDoesNotThrow(() -> detecShapes(detector));
+    }
+
+    @Test
+    public void Filter_HSV_Chanell1_Gaussin_Cany_Hugh_Mediana(){
+        Filter filter = builder
+                .WithHSVFilter()
+                .WithChannelFilter(1)
+                .WithGaussianBlurFilter()
+                .WithCanyFilter()
+                .WithHughFilter()
+                .WithMedianaBlurFilter()
+                .Build();
+
+        testName = new Object(){}.getClass().getEnclosingMethod().getName();
+        usedFiltres = filter.toString();
+
+        detector.setFilter(filter);
+        assertDoesNotThrow(() -> detecShapes(detector));
+    } @Test
+    public void Filter_HSV_Chanell1_Gaussin_Cany(){
+        Filter filter = builder
+                .WithHSVFilter()
+                .WithChannelFilter(1)
+                .WithGaussianBlurFilter()
+                .WithCanyFilter()
+                .Build();
+
+        testName = new Object(){}.getClass().getEnclosingMethod().getName();
+        usedFiltres = filter.toString();
+
+        detector.setFilter(filter);
+        assertDoesNotThrow(() -> detecShapes(detector));
+    }
+
+    @Test
+    public void Filter_HSV_Chanell1_Gaussin_Threshold_100_255_Cany(){
+        Filter filter = builder
+                .WithHSVFilter()
+                .WithChannelFilter(1)
+                .WithGaussianBlurFilter()
+                .WithBinaryFilter(100,255)
+                .WithCanyFilter()
+                .Build();
+
+        testName = new Object(){}.getClass().getEnclosingMethod().getName();
+        usedFiltres = filter.toString();
+
+        detector.setFilter(filter);
+        assertDoesNotThrow(() -> detecShapes(detector));
+    }
+    @Test
+    public void Filter_HSV_Chanell1_Gaussin_Threshold_100_255_Cany_Hugh(){
+        Filter filter = builder
+                .WithHSVFilter()
+                .WithChannelFilter(1)
+                .WithGaussianBlurFilter()
+                .WithBinaryFilter(100,255)
+                .WithCanyFilter()
+                .Build();
+
+        testName = new Object(){}.getClass().getEnclosingMethod().getName();
+        usedFiltres = filter.toString();
+
+        detector.setFilter(filter);
+        assertDoesNotThrow(() -> detecShapes(detector));
+    } @Test
+    public void Filter_HSV_Chanell1WaterSheed_Cany(){
+        Filter filter = builder
+                .WithHSVFilter()
+                .WithChannelFilter(1).WithWaterSheedFilter()
+                .WithCanyFilter()
+                .Build();
+
+        testName = new Object(){}.getClass().getEnclosingMethod().getName();
+        usedFiltres = filter.toString();
+
+        detector.setFilter(filter);
+        assertDoesNotThrow(() -> detecShapes(detector));
+    }
     public void detecShapes(ImageShapeDetector detector) throws Exception {
         getTestData();
         for(File file:testData){
@@ -1127,6 +1581,8 @@ public class FiltersTests {
             detector.drawBoxes();
             writeResult(currentFile);
 
+
+
             String parentDir = GetMostRecentFolder().getAbsolutePath();
 
             File dir = new File(parentDir+ "\\"+testName);
@@ -1137,6 +1593,16 @@ public class FiltersTests {
             File resultImage= new File(resultPath);
             ImageIO.write(detector.getResultImage(), "png", resultImage);
             ImageIO.write(detector.getProcessedImage(), "png", fiteredIamge);
+
+            Filter current = detector.GetFilter();
+            int step = 0;
+            while (current!= null){
+                String filterPath = parentDir + "\\"+testName  +"\\filteredStep_"+step + currentFile + ".png";
+                File filtredStep= new File(filterPath);
+                ImageIO.write(ImageShapeDetector.getImage(current.getProcessedImage()), "png", filtredStep);
+                step++;
+                current = current.getSuccessor();
+            }
         }
 
         File parentDir = GetMostRecentFolder();

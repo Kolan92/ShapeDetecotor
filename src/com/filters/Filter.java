@@ -12,6 +12,12 @@ public abstract class Filter {
     public void setSuccessor(Filter successor){
         this.successor = successor;
     }
+    public Filter getSuccessor(){
+        return this.successor;
+    }
+    public Mat getProcessedImage(){
+        return this.processedImage;
+    }
 
     public abstract Mat applyTo(Mat image) throws Exception;
 

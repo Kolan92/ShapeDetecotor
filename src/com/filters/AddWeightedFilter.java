@@ -10,15 +10,17 @@ import org.opencv.core.Scalar;
 public class AddWeightedFilter extends Filter {
     @Override
     public Mat applyTo(Mat image) throws Exception {
-        Mat lower_red_hue_range = new Mat();
-        Mat upper_red_hue_range = new Mat();
-        Core.inRange(image, new Scalar(0, 100, 100), new Scalar(10, 255, 255), lower_red_hue_range);
-        Core.inRange(image, new Scalar(160, 100, 100), new Scalar(179, 255, 255), upper_red_hue_range);
+        Mat toRemove = new Mat(image.size(), image.type());
+        Mat toSave = new Mat(image.size(), image.type());
+        Core.inRange(image, new Scalar(80, 100, 100), new Scalar(100, 255, 255), toRemove);
+        Core.inRange(image, new Scalar(100, 100, 100), new Scalar(120, 255, 255), toSave);
 
         // Combine the above two images
-        Mat red_hue_image = new Mat();
-        Core.addWeighted(lower_red_hue_range, 1.0, upper_red_hue_range, 1.0, 0.0, red_hue_image);
+        //Core.addWeighted(toRemove, 1.0, upper_red_hue_range, 1.0, 0.0, processedImage);
+        //Core.bitwise_or(toRemove,upper_red_hue_range, processedImage);
+        Core.subtract(toSave, toRemove, processedImage);
 
+        //processedImage = toRemove.clone();
         if(successor != null)
             return successor.applyTo(processedImage);
 

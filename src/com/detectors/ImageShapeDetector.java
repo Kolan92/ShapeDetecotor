@@ -68,12 +68,19 @@ public class ImageShapeDetector {
         System.out.println("processeImage channels " + processeImage.channels());
 
         Imgproc.findContours(processeImage, contours, hierarchy, Imgproc.RETR_TREE, Imgproc.CHAIN_APPROX_SIMPLE);
-
+        ArrayList<MatOfInt> hullCountours = new ArrayList<MatOfInt>();
+        ArrayList<MatOfPoint> newCountours = new ArrayList<MatOfPoint>();
+        for(MatOfPoint conour:contours) {
+            MatOfInt hullContour = new MatOfInt();
+            Imgproc.convexHull(conour, hullContour, false);
+            //hullCountours.add(temp);
+            newCountours.add(convertIndexesToPoints(conour, hullContour));
+        }
         int minCounturArea = getMinimumShapeArea();
 
-        int numberOfCounturs = contours.size();
+        int numberOfCounturs = newCountours.size();
         for (int idx = 0; idx < numberOfCounturs; idx++) {
-            MatOfPoint contour = contours.get(idx);
+            MatOfPoint contour = newCountours.get(idx);
             double contourArea = Imgproc.contourArea(contour);
             if (contourArea < minCounturArea ) continue;
             ShapeType type = determinePolygonType(contour);
@@ -148,5 +155,19 @@ public class ImageShapeDetector {
         catch (Exception e){
             return null;
         }
+    }
+
+    public static MatOfPoint convertIndexesToPoints(MatOfPoint contour, MatOfInt indexes) {
+        int[] arrIndex = indexes.toArray();
+        Point[] arrContour = contour.toArray();
+        Point[] arrPoints = new Point[arrIndex.length];
+
+        for (int i=0;i<arrIndex.length;i++) {
+            arrPoints[i] = arrContour[arrIndex[i]];
+        }
+
+        MatOfPoint hull = new MatOfPoint();
+        hull.fromArray(arrPoints);
+        return hull;
     }
 }

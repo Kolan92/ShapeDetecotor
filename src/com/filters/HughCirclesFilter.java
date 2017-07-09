@@ -8,11 +8,11 @@ import org.opencv.imgproc.Imgproc;
 /**
  * Created by Pawel on 11.06.2017.
  */
-public class HughFilter extends Filter {
+public class HughCirclesFilter extends Filter {
     private int CannyUpperThreshold = 100;
     private int MinRadius = 200;
     private int MaxRadius = 400;
-    private int Accumulator = 300;
+    private int Accumulator = 150;
 
     private int minDist = 100;
     private int dp = 1;
@@ -24,25 +24,33 @@ public class HughFilter extends Filter {
     public Mat applyTo(Mat image) throws Exception {
         //    public static void HoughCircles(Mat image, Mat circles, int method, double dp, double minDist, double param1, double param2, int minRadius, int maxRadius)
 
-        Imgproc.HoughCircles(image, processedImage, Imgproc.CV_HOUGH_GRADIENT,
-                4.0, image.rows() / 4, CannyUpperThreshold, Accumulator,
-                MinRadius, MaxRadius);
+        //TODO: needs improvments, method sensitive to its parameters
+        Mat circles= new Mat();
+        Mat processedImage = image.clone();
+        Imgproc.HoughCircles(image, circles, Imgproc.CV_HOUGH_GRADIENT,
+                1, 30, 200, 50, 0, 0 );
 
-        if (processedImage.cols() > 0)
-            for (int x = 0; x < processedImage.cols(); x++)
+        /*
+        Imgproc.HoughCircles(image, circles, Imgproc.CV_HOUGH_GRADIENT,
+                dp, minDist, param1, param2,
+                minRadius, maxRadius);
+        */
+        System.out.println("Hugh found circles before filtration: "+circles.cols());
+        if (circles.cols() > 0)
+            for (int x = 0; x < circles.cols(); x++)
             {
-                double vCircle[] = processedImage.get(0,x);
+                double vCircle[] = circles.get(0,x);
 
                 if (vCircle == null)
-                    break;
+                    continue;
 
                 Point pt = new Point(Math.round(vCircle[0]), Math.round(vCircle[1]));
                 int radius = (int)Math.round(vCircle[2]);
-                Imgproc.circle(image, pt, radius, new Scalar(255,255,255), 10);
+                Imgproc.circle(processedImage, pt, radius, new Scalar(255,255,255), 10);
             }
         if(successor != null)
-            return successor.applyTo(image);
+            return successor.applyTo(processedImage);
 
-        return image;
+        return processedImage;
     }
 }

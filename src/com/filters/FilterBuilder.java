@@ -167,9 +167,16 @@ public class FilterBuilder {
         return this;
     }
 
-    public FilterBuilder WithHughFilter(){
-        HughFilter filter = new HughFilter();
+    public FilterBuilder WithHughCirclesFilter(){
+        HughCirclesFilter filter = new HughCirclesFilter();
         filters.add(filter);
+
+        return this;
+    }
+
+    public FilterBuilder WithHughLinesFilter(){
+        HughLinesFilter hughLinesFilter = new HughLinesFilter();
+        filters.add(hughLinesFilter);
 
         return this;
     }
@@ -188,6 +195,14 @@ public class FilterBuilder {
         return this;
     }
 
+    public FilterBuilder WithAddWeightedFilter(){
+        AddWeightedFilter addWeightedFilter = new AddWeightedFilter();
+        filters.add(addWeightedFilter);
+
+        return this;
+    }
+
+    @Deprecated
     public FilterBuilder AsMergeFilter(){
         int lastIndex  = filters.size() - 1;
         Filter lastFilter = filters.get(lastIndex);

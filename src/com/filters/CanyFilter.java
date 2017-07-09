@@ -21,9 +21,9 @@ public class CanyFilter extends Filter {
     }
     @Override
     public Mat applyTo(Mat image) throws Exception {
-        double mediana = CalculateMediana(image);
-        int lowerThreshold = (int)Math.max(0, (1.0 - sigma) * mediana);
-        int upperThreshold = (int)Math.min(255, (1.0 + sigma) * mediana);
+        double median = CalculateMedian(image);
+        int lowerThreshold = (int)Math.max(0, (1.0 - sigma) * median);
+        int upperThreshold = (int)Math.min(255, (1.0 + sigma) * median);
 
         Imgproc.Canny(image, processedImage, lowerThreshold, upperThreshold);
         if(successor != null){
@@ -32,7 +32,7 @@ public class CanyFilter extends Filter {
         return processedImage;
     }
 
-    private double CalculateMediana(Mat source) {
+    private double CalculateMedian(Mat source) {
         Mat medianaMat = source.clone();
         medianaMat = medianaMat.reshape(0, 1);
         ArrayList<Double> pixelsList = new ArrayList<>();

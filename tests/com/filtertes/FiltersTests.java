@@ -1280,6 +1280,108 @@ public class FiltersTests {
         detector.setFilter(filter);
         assertDoesNotThrow(() -> detecShapes(detector));
     } @Test
+    public void Filter_HSV_AddWeighted_Threshold_200_250_Cany(){
+        Filter filter = builder
+                .WithHSVFilter()
+                .WithAddWeightedFilter()
+                .WithBinaryFilter(200, 250)
+                .WithCanyFilter()
+                .Build();
+
+        testName = new Object(){}.getClass().getEnclosingMethod().getName();
+        usedFiltres = filter.toString();
+
+        detector.setFilter(filter);
+        assertDoesNotThrow(() -> detecShapes(detector));
+    }
+    @Test
+    public void Filter_HSV_AddWeighted_Opening_Closing_Cany(){
+        Filter filter = builder
+                .WithHSVFilter()
+                .WithAddWeightedFilter()
+                .WithOpeningFilter()
+                .WithClosingFilter()
+                .WithCanyFilter()
+                .Build();
+
+        testName = new Object(){}.getClass().getEnclosingMethod().getName();
+        usedFiltres = filter.toString();
+
+        detector.setFilter(filter);
+        assertDoesNotThrow(() -> detecShapes(detector));
+    }
+    @Test
+    public void Filter_HSV_AddWeighted_Opening_Closing_HughCircles_Cany(){
+        Filter filter = builder
+                .WithHSVFilter()
+                .WithAddWeightedFilter()
+                .WithOpeningFilter()
+                .WithClosingFilter()
+                .WithHughCirclesFilter()
+                .WithCanyFilter()
+                .Build();
+
+        testName = new Object(){}.getClass().getEnclosingMethod().getName();
+        usedFiltres = filter.toString();
+
+        detector.setFilter(filter);
+        assertDoesNotThrow(() -> detecShapes(detector));
+    }    @Test
+    public void Filter_HSV_AddWeighted_Opening_Closing_HughCircles_Mediana2_Cany(){
+        Filter filter = builder
+                .WithHSVFilter()
+                .WithAddWeightedFilter()
+                .WithOpeningFilter()
+                .WithClosingFilter()
+                .WithHughCirclesFilter()
+                .WithMedianaBlurFilter()
+                .WithMedianaBlurFilter()
+                .WithCanyFilter()
+                .Build();
+
+        testName = new Object(){}.getClass().getEnclosingMethod().getName();
+        usedFiltres = filter.toString();
+
+        detector.setFilter(filter);
+        assertDoesNotThrow(() -> detecShapes(detector));
+    }
+    @Test
+    public void Filter_HSV_AddWeighted_Opening_Closing_Mediana2_HughLines_Cany(){
+        Filter filter = builder
+                .WithHSVFilter()
+                .WithAddWeightedFilter()
+                .WithOpeningFilter()
+                .WithClosingFilter()
+                .WithMedianaBlurFilter()
+                .WithMedianaBlurFilter()
+                .WithHughLinesFilter()
+                .WithCanyFilter()
+                .Build();
+
+        testName = new Object(){}.getClass().getEnclosingMethod().getName();
+        usedFiltres = filter.toString();
+
+        detector.setFilter(filter);
+        assertDoesNotThrow(() -> detecShapes(detector));
+    }
+    @Ignore
+    @Test
+    public void Filter_HSV_AddWeighted_Closing_Opening_HughCircles_Cany(){
+        Filter filter = builder
+                .WithHSVFilter()
+                .WithAddWeightedFilter()
+                .WithClosingFilter()
+                .WithOpeningFilter()
+                .WithHughCirclesFilter()
+                .WithCanyFilter()
+                .Build();
+
+        testName = new Object(){}.getClass().getEnclosingMethod().getName();
+        usedFiltres = filter.toString();
+
+        detector.setFilter(filter);
+        assertDoesNotThrow(() -> detecShapes(detector));
+    } @Test
     public void Filter_HSV_Chanell1_10Mediana_Threshold_Cany_Hugh(){
         Filter filter = builder
                 .WithHSVFilter()
@@ -1296,7 +1398,7 @@ public class FiltersTests {
                 .WithMedianaBlurFilter()
                 .WithBinaryFilter()
                 .WithCanyFilter()
-                .WithHughFilter()
+                .WithHughCirclesFilter()
                 //.AsMergeFilter()
                 .Build();
 
@@ -1346,7 +1448,7 @@ public class FiltersTests {
                 .WithMedianaBlurFilter()
                 .WithBinaryFilter(150,255)
                 .WithCanyFilter()
-                .WithHughFilter()
+                .WithHughCirclesFilter()
                 .Build();
 
         testName = new Object(){}.getClass().getEnclosingMethod().getName();
@@ -1432,7 +1534,7 @@ public class FiltersTests {
                 .WithGaussianBlurFilter()
                 .WithAdaptiveThresholdFilter()
                 .WithCanyFilter()
-                .WithHughFilter()
+                .WithHughCirclesFilter()
                 .Build();
 
         testName = new Object(){}.getClass().getEnclosingMethod().getName();
@@ -1482,7 +1584,7 @@ public class FiltersTests {
                 .WithGaussianBlurFilter()
                 .WithAdaptiveThresholdFilter()
                 .WithCanyFilter()
-                .WithHughFilter()
+                .WithHughCirclesFilter()
                 .WithMedianaBlurFilter()
                 .Build();
 
@@ -1500,7 +1602,7 @@ public class FiltersTests {
                 .WithChannelFilter(1)
                 .WithGaussianBlurFilter()
                 .WithCanyFilter()
-                .WithHughFilter()
+                .WithHughCirclesFilter()
                 .WithMedianaBlurFilter()
                 .Build();
 
@@ -1581,8 +1683,6 @@ public class FiltersTests {
             detector.drawBoxes();
             writeResult(currentFile);
 
-
-
             String parentDir = GetMostRecentFolder().getAbsolutePath();
 
             File dir = new File(parentDir+ "\\"+testName);
@@ -1594,14 +1694,22 @@ public class FiltersTests {
             ImageIO.write(detector.getResultImage(), "png", resultImage);
             ImageIO.write(detector.getProcessedImage(), "png", fiteredIamge);
 
-            Filter current = detector.GetFilter();
+            Filter currentFilter = detector.GetFilter();
+            File stepdir = new File(parentDir+ "\\"+testName+ "\\"+currentFile);
+            stepdir.mkdir();
             int step = 0;
-            while (current!= null){
-                String filterPath = parentDir + "\\"+testName  +"\\filteredStep_"+step + currentFile + ".png";
+            while (currentFilter!= null){
+                BufferedImage filtredImage = ImageShapeDetector.getImage(currentFilter.getProcessedImage());
+                if(filtredImage == null) {
+                    step++;
+                    currentFilter = currentFilter.getSuccessor();
+                    continue;
+                }
+                String filterPath = parentDir + "\\"+testName+ "\\"+currentFile  +"\\filteredStep_"+step + currentFile + ".png";
                 File filtredStep= new File(filterPath);
-                ImageIO.write(ImageShapeDetector.getImage(current.getProcessedImage()), "png", filtredStep);
+                ImageIO.write(filtredImage, "png", filtredStep);
                 step++;
-                current = current.getSuccessor();
+                currentFilter = currentFilter.getSuccessor();
             }
         }
 

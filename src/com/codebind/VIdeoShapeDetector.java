@@ -24,6 +24,7 @@ public class VideoShapeDetector implements ShapeDetector {
     public VideoShapeDetector(){
         videoStream = new VideoCapture(0);
         FilterBuilder builder = new FilterBuilder();
+        /*
         Filter filter = builder
                 .WithHSVFilter()
                 .WithChannelFilter(1)
@@ -32,6 +33,16 @@ public class VideoShapeDetector implements ShapeDetector {
 
                 .WithClosingFilter()
                 .WithBinaryFilter(150,230)
+                .WithCanyFilter()
+                .Build();
+*/
+        Filter filter = builder
+                .WithHSVFilter()
+                .WithAddWeightedFilter()
+                .WithOpeningFilter()
+                .WithClosingFilter()
+                .WithMedianaBlurFilter()
+                .WithMedianaBlurFilter()
                 .WithCanyFilter()
                 .Build();
         frameDetector.setFilter(filter);
